@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+     <meta charset="utf-8">
+   <title>Isotop</title>
+  <link rel="stylesheet" href="jquery-ui.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="jquery-ui.js"></script>
+	
+   <style>
+	body {
+		background-color: #fdfdfd;
+		width: 900px;
+		text-align: center;
+		margin: auto;
+
+	}
+    button{
+		position: absolute;
+		display: none;
+	    height: 20px;
+		width: 20px;
+		
+		top: 0px;
+		right: 0px;
+	}
+	button img {
+		position: absolute;
+		display: none;
+	    height: 15px;
+		width: 15px;
+		
+		top: 0px;
+		left: -0px;
+	}
+
+	#actors {
+		text-align: center;
+		padding: 15px 0;
+		width: 99%;
+		height: 25px;
+	}
+
+	div {
+		position: relative;
+		float: left;
+		width: 24.75%;
+		height: 120px;
+		background-color: white;
+		box-shadow: 0 0 3px rgba(0,0,0,.5);
+		/*transition: all .5s;*/
+	}
+
+	img {
+		position: absolute center;
+		height: 60%;
+		margin-top: 5%;
+        }
+	p { 
+		position: absolute center;
+		top: 70%;
+        }
+
+	#actors a {
+		padding: 10px;
+		border: 1px solid #ccc;
+		margin: 0 10px;
+		border-radius: 5px;
+		transition: all .5s;
+		cursor: pointer;
+	}
+
+	#actors a:hover {
+		color: red;
+	}
+
+	#actors a.current {
+		color: red;
+		border-color: red;
+	}
+
+	#all-actors {
+		box-shadow: none;
+		width: 100%;
+		margin-top: 10px;
+		background-color: transparent;
+		margin-bottom: 30px;
+	}
+
+	#clone {
+
+        background-image: url("southPark2.png");
+        display: none;
+        width: 94.5%;
+        margin-top: 10px;
+        padding: 20px;
+        height: 250px;
+      
+
+	}
+
+	#pClone {
+		text-shadow: 0 0 3px rgba(0,0,0,.5);
+		text-transform: uppercase;
+		font-size: 30px;
+
+
+	}
+
+	.cloneButton {
+      position: relative;
+      float:left;
+      width: 150px;
+      height:30px;
+      margin: 10px;
+
+      box-shadow: 0 0 3px rgba(0,0,0,.5);
+
+	}
+	.cloneDroppable {
+		display: none;
+	}
+
+
+	#slider {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin: 0px;
+	width: 99%; 
+    height: 340px;
+
+    text-align: center;
+	}
+
+	#slider2{
+	margin-top: 0px;
+    margin-bottom: 0px;
+    margin: 0px;
+    width: 100%; 
+    height: 320px;
+    text-align: center;
+	}
+
+    .image {
+    float:left;
+    margin: 0px;
+    padding: 0px;
+    height: 320px;
+    width: 515px;
+	}
+    #bigpicture {'
+      margin: 0px;
+      height: 320px;
+      position:absolute;
+      
+    }
+
+    #picture{
+      	height: 320px;
+      	overflow: hidden;
+      	position: relative;
+      	width: 515px;
+      	left: 200px;
+      	margin: 0px;
+    }
+
+    
+
+    .sliderButtonImage {
+    	position: absolute;
+    	float:left;
+    	display: block;
+    	width: 30px;
+    	height: 30px;
+        top: 125px;  
+        left: 484px;
+        z-index: 10;
+        
+    }
+
+    .sliderButtonImage2 {
+    	position: absolute;
+    	float:left;
+    	display: block;
+    	width: 30px;
+    	height: 30px;
+        top: 125px;  
+        left: 0px;
+        z-index: 10;
+
+    }
+
+    .buttonLittle {
+    	position: absolute;
+    	float:left;
+    	display: block;
+    	width: 15px;
+    	height: 15px;
+        top: 280px; 
+        z-index: 10;
+    }
+
+    .buttonLittle1 {
+    	left: 210px;
+    	z-index: 10;
+    }
+    .buttonLittle2 {
+    	left: 230px;
+    	z-index: 10;
+    }
+
+    .buttonLittle3 {
+    	left: 250px;
+    	z-index: 10;
+    }
+    .buttonLittle4 {
+    	left: 270px;
+    	z-index: 10;
+    }
+
+    #rangeSlider {
+    	position: fixed;
+    	width: 890px;
+    	bottom: 10px;
+    }
+
+    #plusButton {
+    	width: 40px;
+    	height: 40px;
+    	position: absolute;
+    	float:left;
+    	display: block;
+        top: 280px; 
+        z-index: 10;
+    }
+
+    #file_fields {
+    	position: fixed;
+    	top:150px;
+    	left:450px;
+    	display: none;
+    	width: 400px;
+    	height: 100px;
+    	
+    }
+
+    .load {
+
+    	width: 20px;
+    	height: 20px;
+    	
+    }
+
+    #loadImage {
+    	
+    	top:180px;
+    	left:500px;
+    }
+
+    #form{
+
+    	position: fixed;
+    	display: none;
+    	background-image: url("southPark2.png");
+    	z-index: 9999;
+    	margin:auto;
+    	padding: 20px;
+    	max-width: 400px;
+    	max-height: 200px;
+    	top:40%;
+    	left:40%;
+    }
+    #form input{
+
+    	margin: 20px;
+    	margin-top: 
+    	top:50%;
+    	right:10%;
+    }
+
+</style>
+
+</head>
+
+<body>
+
+<div id="slider">
+
+<div id="slider2">
+
+<div id="picture">
+ <input type="Image" src="sliderButton.png" class="sliderButtonImage"/>
+ <input type="Image" src="sliderButton2.png" class="sliderButtonImage2"/>
+
+
+  <input type="Image" src="buttonLittle.png" class="buttonLittle buttonLittle1"/>
+	<input type="Image" src="buttonLittle.png" class="buttonLittle buttonLittle2"/>
+	<input type="Image" src="buttonLittle.png" class="buttonLittle buttonLittle3"/>
+	<input type="Image" src="buttonLittle.png" class="buttonLittle buttonLittle4"/>
+
+	<input type="Image" src="plusButton.png" id="plusButton"/>
+	
+
+  <div id="bigPicture" data-current=0>
+	
+	<div class="image"><img src="spl1.png" class="image">
+	
+	</div>
+	<div class="image"><img src="spl2.png" class="image">
+    
+
+	</div>
+	<div class="image"><img src="spl3.png" class="image">
+    
+	</div>
+	<div class="image"><img src="spl4.png" class="image">
+    
+	</div>
+	
+	
+    </div>
+</div>	
+
+</div>
+
+</div>
+
+
+<div id="actors" class="all boys girls others teachers parents">
+    <a rel="all" class="current">All</a>
+    <a rel="boys">Boys</a>
+    <a rel="girls">Girls</a>
+    <a rel="teachers">Teachers</a>
+    <a rel="others">Others</a>
+    <a rel="parents">Parents</a>
+    <a id="add">Add</a>
+    <a id="series">Series</a>
+</div>
+
+<div id="clone">
+<p id="pClone">What actor do you want to create?</p>
+    <button class="cloneButton boys">Boys</button>
+    <button class="cloneButton girls">Girls</button>
+    <button class="cloneButton teachers">Teachers</button>
+    <button class="cloneButton others">Others</button>
+    <button class="cloneButton parents">Parents</button>
+   
+</div>
+
+
+
+<div id="all-actors">
+	
+
+<div class="all boys" data-age="8">
+	<img src="Eric_cartman.png">
+	<p>
+		Eric Cartman
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all boys" data-age="8">
+	<img src="StanMarsh.png">
+	<p>
+		Stan Marsh
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all boys" id="Kyle" data-age="8">
+	<img src="KyleBroflovski.png">
+	<p>
+		Kyle Broflovski
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all boys" data-age='8'>
+	<img src="KennyMcCormick.png">
+	<p>
+		Kenny McCormick
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all boys" data-age='8'>
+	<img src="Pip.png">
+	<p>
+		Pip
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+
+<div class="all boys" data-age='8'>
+	<img src="Craig.png">
+	<p>
+		Craig
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all girls" data-age='8'>
+	<img src="Wendy.png">
+	<p>
+		Wendy
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all girls" data-age='8'>
+	<img src="Sally.png">
+	<p>
+		Sally
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all boys" data-age='4'>
+	<img src="Ike.png">
+	<p>
+		Ike
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all others" data-age='37'>
+	<img src="SouthParkChef.png">
+	<p>
+		Chef
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all others"  data-age='50'>
+	<img src="Officer.png">
+	<p>
+		Polisman
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+
+<div class="all others" data-age='79'>
+	<img src="jesus.png">
+	<p>
+		Jesus
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all others" data-age='50'>
+	<img src="Ned.png">
+	<p>
+		Ned
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all teachers" data-age='48'>
+	<img src="Herbert_Garrison.png">
+	<p>
+		Herbert Garrison
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all teachers" data-age='54'>
+	<img src="Mr_Mackey.png">
+	<p>
+		Mr Mackey
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+
+<div class="all parents" data-age='40'>
+	<img src="MrsBroflovski.png">
+	<p>
+		Mrs Broflovski 
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+
+<div class="all parents" data-age='42'>
+	<img src="Flo.png">
+	<p>
+		Mrs Flo
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all parents" data-age='35'>
+	<img src="Randy_Marsh.png">
+	<p>
+		Randy Marsh 
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all parents" data-age='38'>
+	<img src="Mr_Slave_Cutout.png">
+	<p>
+		Mr Slave Cutout 
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all parents" data-age='32'>
+	<img src="liane-cartman.png">
+	<p>
+		Liane Cartman 
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all others" data-age='44'>
+	<img src="Crabtree.png">
+	<p>
+	Crabtree 
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all others" data-age='54'>
+	<img src="Man.png">
+	<p>
+	Hunter
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all others" data-age='65'>
+	<img src="Man2.png">
+	<p>
+	Maybe Lyke
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+
+<div class="all others" data-age='62'>
+	<img src="Man3.png">
+	<p>
+	Maybe Bred
+	</p>
+	<button class="closeButton"><img src="close-button.png"></button>
+</div>
+</div>
+
+
+<div id="rangeSlider"></div>
+<br />
+<span id="spanOutput"></span>
+
+</div>
+
+<div id="file_fields">
+<p>Please load the file</p>
+<input type="file" name="image" id="loadImageFile" />
+<input type="button" id="loadImage" value="Submit"/>
+</div>
+
+
+<!--<form id="form">
+	Username: <input type="text" name="login" value="Login"></input></br>
+    Password: <input type="text" name="password" value="Password"></input></br>
+    <input type="button" value="Submit"></input>
+</form>-->
+
+
+
+<script type="text/javascript">
+
+
+$(function() {
+    var formShow = function(){
+    $("#form").show();	
+    
+    }
+     
+    formShow();
+	
+
+	var newSelection = "";
+    var min, max;
+
+    
+
+	    $("#actors a").on("click", function(){
+
+	    $("#all-actors").fadeTo(600);
+
+		$("#actors a").removeClass("current");
+		$(this).addClass("current");
+
+		newSelection = $(this).attr("rel");
+		var $allActorsDiv = $("#all-actors div");    
+       
+		var myHide = function() {
+		$allActorsDiv.not("."+newSelection).hide(1000); }
+        myHide();
+		
+		var myShown = function() {
+		$("."+newSelection).show(1000); }
+        myShown();
+
+		$("#all-actors").fadeTo(600, 1);	
+		$("#clone").css("display","none");
+        $(".cloneButton").css("display","none");
+	    }); 
+
+	    function showAllActors(minAge, maxAge) {
+ 
+         $("."+newSelection).hide().filter(function() {
+         $("#actors").css("display","block"); 
+          var age = parseInt($(this).data("age"), 10);
+          return age >= minAge && age <= maxAge;
+         }).show();}
+
+         $(function() {
+         	var options = {
+         	 range: true,
+         	  min: 2,
+              max: 80,
+              values: [2, 80],
+             
+              slide: function(event, ui) {
+                      min = ui.values[0];
+                      max = ui.values[1];
+
+            showAllActors(min, max);
+            }
+            }, 
+            min, max;
+
+            $("#rangeSlider").slider(options);
+             min = $("#rangeSlider").slider("values", 0);
+             max = $("#rangeSlider").slider("values", 1);
+            
+             showAllActors(min, max);
+             });                    
+               
+        /*$("div:has(img)")*/
+        $('img:not(.image):not(.sliderButtonImage)').parent('[class != closeButton]').on("click", function(){
+           	$(this).animate({
+            height: '500px',
+            width: '99.8%'})  
+        $(this).siblings("div:has(img)").hide();
+
+        $('img:not(.image):not(.sliderButtonImage)').parent('[class != closeButton]').mouseleave(function(){
+           	$(this).animate({
+            height: '120px',
+            width: '24.8%'});
+           });
+    });
+
+        $("div:has(img)").mouseenter(function(){
+        $(this).children("button").css("display","block");
+        $(this).children("button").children("img").css("display","block");
+    });
+        $("div:has(img)").mouseleave(function(){
+        $(this).children("button").css("display","none");
+        $(this).children("button").children("img").css("display","none");
+        
+    });
+     
+     $("[class = closeButton]").on("click", function(){
+     	$(this).parent().remove();
+     })
+
+     $("#add").on("click", function(){
+        $("#clone").css("display","block");
+        $(".cloneButton").css("display","block");
+     })
+
+
+     $(".cloneButton").on("click", function(){
+     	
+     	if($(this).hasClass("boys")){
+     		$("div.boys:has(img):first").clone(true).appendTo("#all-actors");
+
+     	} else if ($(this).hasClass("girls")) {
+     		$("div.girls:has(img):first").clone(true).appendTo("#all-actors");
+
+     	} else if ($(this).hasClass("parents")) {
+     	    $("div.parents:has(img):first").clone(true).appendTo("#all-actors");
+     		
+     	} else if ($(this).hasClass("teachers")) {
+	        $("div.teachers:has(img):first").clone(true).appendTo("#all-actors");
+     		
+     	} else if ($(this).hasClass("others")) {
+	        $("div.others:has(img):first").clone(true).appendTo("#all-actors");
+     	} else {"Please,chose the actor?"};
+
+     });
+     
+     var tw=0;
+     var newDiv;
+     $("#plusButton").on("click", function(){
+             $("#file_fields").css("display","block");
+         });
+
+         $("#loadImage").on("click", function(){
+         	var c = $("#loadImageFile").val().replace(/(c:\\)*fakepath\\/i, '');
+            newDiv  = $("<div></div>").appendTo($("#bigPicture")).addClass("image");
+            tw += +$(newDiv).width();
+            console.log(tw);
+         	$("<img>").attr("src", c).addClass("image").appendTo(newDiv).css("float","left");
+
+         	$("#file_fields").css("display","none");
+         	$("#bigPicture").css("width", tw+newDiv.width()+"px");
+         });
+
+     
+     $("div > img.image").each(function(){
+       tw += +$(this).width();
+     });
+
+     $("#bigPicture").css("width", tw+"px");
+
+     
+
+
+      
+      var sliderTimer;
+      
+      sliderTimer=setInterval(nextSlide, 5000);
+      $('#bigPicture').hover(function(){
+        clearInterval(sliderTimer);
+        },function(){
+        sliderTimer=setInterval(nextSlide, 5000);
+        });
+        
+
+        function nextSlide(){
+      	var currentSlide=$("#bigPicture").data("current");
+        currentSlide++;
+        var smallButtons=$("#smallButtons").data("current");
+        smallButtons++;
+
+        if(currentSlide>=($('#bigPicture').children().size())) {
+        		currentSlide=0;
+        		$("#bigPicture").animate({left: -currentSlide*$("#picture").width()}, 10).data('current', currentSlide);
+            
+           }
+
+            $("#bigPicture").animate({left: -currentSlide*$("#picture").width()}, 1000).data('current', currentSlide);
+
+           }
+
+        function nextSlide2(){
+      	var currentSlide=$('#bigPicture').data('current');
+        currentSlide--;
+        if(currentSlide<0) {
+        		currentSlide=$('#bigPicture').children().size()-1;
+        		$("#bigPicture").animate({left: -currentSlide*$("#picture").width()}, 10).data('current', currentSlide);}	
+            $("#bigPicture").animate({left: -currentSlide*$("#picture").width()}, 1000).data('current', currentSlide);
+        }
+
+
+
+        $(".sliderButtonImage").click(function(){
+          nextSlide();
+          changeSlideSmallButton();
+          clearInterval(sliderTimer);	
+        });
+
+        $(".sliderButtonImage2").click(function(){
+          nextSlide2();	
+          changeSlideSmallButton();
+          clearInterval(sliderTimer);
+        });   
+
+        function changeSlide(x){
+        		
+      	    var currentSlide=$('#bigPicture').data('current');
+
+            
+              if(x.hasClass("buttonLittle1")) {
+        		currentSlide=0;
+        		$("#bigPicture").animate({left: -currentSlide*$("#picture").width()}, 10).data('current', currentSlide);
+               $(".buttonLittle2").attr("src", "knopka.png");
+                $(".buttonLittle:not(.buttonLittle1)").attr("src", "buttonLittle.png");
+        	    }
+
+        		if(x.hasClass("buttonLittle2")){
+        		currentSlide=1;
+        		$("#bigPicture").animate({left: -currentSlide*$("#picture").width()}, 10).data('current', currentSlide);
+        	    $(".buttonLittle2").attr("src", "knopka.png");
+        	    $(".buttonLittle:not(.buttonLittle2)").attr("src", "buttonLittle.png");
+        	    }
+
+        		if(x.hasClass("buttonLittle3")) {
+        		currentSlide=2;
+        		$("#bigPicture").animate({left: -currentSlide*$("#picture").width()}, 10).data('current', currentSlide);
+                $(".buttonLittle3").attr("src", "knopka.png");
+                $(".buttonLittle:not(.buttonLittle3)").attr("src", "buttonLittle.png");
+        	    }
+
+        		if(x.hasClass("buttonLittle4")) {
+        		currentSlide=3;
+        		$("#bigPicture").animate({left: -currentSlide*$("#picture").width()}, 10).data('current', currentSlide);
+                $(".buttonLittle4").attr("src", "knopka.png");
+                $(".buttonLittle:not(.buttonLittle4)").attr("src", "buttonLittle.png");
+
+        	    }	
+                };
+
+        $(".buttonLittle").click(function(){	
+             changeSlide($(this));
+             changeSlideSmallButton();
+             clearInterval(sliderTimer);
+            });
+
+
+        // We add actors to the series!
+        $(".all:not(#actors)").draggable({
+        	helper: "clone",
+        });
+         $( "#series" ).droppable({
+         	tolerance: "touch",
+         	drop: function(event, ui){
+            $( "<div></div>" ).html( ui.draggable.html() ).appendTo("#all-actors").css("display","none").addClass("seriesActors");
+         }
+         });
+         $( "#series" ).on("click", function(){
+         	$(".seriesActors").css("display", "block");        	
+         });
+
+
+         /*$("#plusButton").on("click", function(){
+             $("#file_fields").css("display","block");
+         })
+
+         $("#loadImage").on("click", function(){
+         	var c = $("#loadImageFile").val().replace(/(c:\\)*fakepath\\/i, '');
+            var newDiv  = $("<div></div>").appendTo($("#bigPicture")).addClass("image");
+         	
+         	$("<img>").attr("src", c).addClass("image").appendTo(newDiv);
+         })*/
+
+
+        
+ });		
+
+function changeSlideSmallButton(){
+            
+            var currentSlide=$('#bigPicture').data('current');
+
+            
+              if(currentSlide==0) {
+
+               $(".buttonLittle1").attr("src", "knopka.png");
+                $(".buttonLittle:not(.buttonLittle1)").attr("src", "buttonLittle.png");
+              }
+
+            if(currentSlide==1){
+           
+              $(".buttonLittle2").attr("src", "knopka.png");
+              $(".buttonLittle:not(.buttonLittle2)").attr("src", "buttonLittle.png");
+              }
+
+            if(currentSlide==2) {
+                $(".buttonLittle3").attr("src", "knopka.png");
+                $(".buttonLittle:not(.buttonLittle3)").attr("src", "buttonLittle.png");
+              }
+
+            if(currentSlide==3) {
+            
+                $(".buttonLittle4").attr("src", "knopka.png");
+                $(".buttonLittle:not(.buttonLittle4)").attr("src", "buttonLittle.png");
+
+              } 
+                };
+changeSlideSmallButton();
+
+                
+
+
+
+
+
+</script>
+
+</body>
+</html>
